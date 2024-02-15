@@ -3,7 +3,7 @@ export default{
     // temP 要紀錄產品數量
     data(){
         return{
-            myModal:null,
+            myModal:'',
             qty:1, //將數量套用在 modal 的 input 上 
         }
     },

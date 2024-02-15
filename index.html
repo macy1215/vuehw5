@@ -6,18 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css'
-          integrity='sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw=='
-          crossorigin='anonymous' />
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  
+  <!-- vueloading -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.2"></script>
+  <!-- Lastly add this package -->
+  <script src="https://cdn.jsdelivr.net/npm/vue-loading-overlay@6"></script>
+  <link href="https://cdn.jsdelivr.net/npm/vue-loading-overlay@6/dist/css/index.css" rel="stylesheet">
+    
   </head>
   <body>
     <div id="app">
       <div class="container">
+        <!-- <loading v-model:active="isLoading"/> -->
         <div class="mt-4">
           <!-- 產品Modal -->
-          <user-Modal :temp-product="tempProduct,status" :add-to-cart="addToCart" ref="pModal"></user-Modal>
+          <user-Modal :temp-Product="tempProduct,status" :add-to-cart="addToCart" ref="pModal"></user-Modal>
           <!-- 產品Modal -->
       
           <table class="table align-middle">
@@ -79,7 +84,7 @@
               </tr>
             </thead>
             <tbody>
-              <template v-for="cart in carts.carts" key="cart.id" v-if="carts.total !== 0"> 
+              <template v-for="cart in carts.carts" :key="cart.id" v-if="carts.total !== 0"> 
                 <!-- 資料是 carts 狀態的 carts 資料 -->
                 <tr>
                   <td>
@@ -256,21 +261,15 @@
       </div>
     </script>
       
-  
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.min.js'
-            integrity='sha512-Xk3wWei2TGrsh9kDSBKUMIjw/86sLUvhtnv9f7fOuIwhhiUTKz8szkWkzHthrM5Bb3Bu9idSzkxOrkzhcneuiw=='
-            crossorigin='anonymous'></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
-            integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG"
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
-            integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
-            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://unpkg.com/vee-validate@next"></script>
     <script src="https://unpkg.com/@vee-validate/i18n@4.1.0"></script>
     <script src="https://unpkg.com/@vee-validate/rules"></script>
+
     <script src="./index.js" type="module"></script>
   </body>
 </html>

@@ -1,17 +1,11 @@
-import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+import {createApp} from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import userModal from './components/productModal.js'
-
-const { defineRule, Form, Field, ErrorMessage, configure } = VeeValidate;
-const { required, email, min, max } = VeeValidateRules;
-const { localize, loadLocaleFromURL } = VeeValidateI18n;
-
-//const { createApp } =Vue
 
 const apiUrl= `https://vue3-course-api.hexschool.io/v2` 
 const path= 'maciw2'
 
 
-const app =createApp({
+const app=createApp({
     data(){
         return{
             apiUrl,
@@ -28,7 +22,8 @@ const app =createApp({
                 cartQtyLoading:'',
             },
             //購物車列表
-            carts:{}
+            carts:{},
+            isLoading:true,
         }
     },
 
@@ -130,15 +125,17 @@ const app =createApp({
         //初始化
         this.getProductList();
         this.getCart();
+        setTimeout(()=>{
+			this.isLoading=false;
+		},1000);
     },
     components:{
         userModal,
     }
-})
-
-//註冊全域的表單驗證元件（VForm, VField, ErrorMessage）
-app.component('VForm', VeeValidate.Form);
-app.component('VField', VeeValidate.Field);
-app.component('ErrorMessage', VeeValidate.ErrorMessage);
+});
+app.component('loading', VueLoading.Component);
 
 app.mount('#app');
+
+
+
