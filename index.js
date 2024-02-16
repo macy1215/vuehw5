@@ -23,7 +23,7 @@ const app=createApp({
             },
             //購物車列表
             carts:{},
-            isLoading:true,
+            isLoading:'',
         }
     },
 
@@ -33,6 +33,7 @@ const app=createApp({
             .then((res)=>{
                 //console.log(res.data.products)
                 this.products = res.data.products;
+                this.isLoading=false;
             })
             .catch((err)=>{
                 return alert(err.message);
@@ -123,17 +124,19 @@ const app=createApp({
     },
     mounted(){
         //初始化
-        this.getProductList();
-        this.getCart();
+        this.isLoading=true;
         setTimeout(()=>{
-			this.isLoading=false;
-		},1000);
+            this.getProductList();
+            this.getCart();
+        },3000)
+        
     },
     components:{
         userModal,
     }
 });
-app.component('loading', VueLoading.Component);
+
+app.use(VueLoading.LoadingPlugin);
 
 app.mount('#app');
 
