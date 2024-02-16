@@ -1,9 +1,27 @@
-import {createApp} from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
 import userModal from './components/productModal.js'
+const { defineRule, Form, Field, ErrorMessage, configure } = VeeValidate;
+const { required, email, min, max } = VeeValidateRules;
+const { localize, loadLocaleFromURL } = VeeValidateI18n;
 
-const apiUrl= `https://vue3-course-api.hexschool.io/v2` 
-const path= 'maciw2'
+defineRule('required', required);
+defineRule('email', email);
+defineRule('min', min);
+defineRule('max', max);
 
+// 讀取外部的資源
+VeeValidateI18n.loadLocaleFromURL('./zh_TW.json');
+
+// Activate the locale
+VeeValidate.configure({
+  generateMessage: VeeValidateI18n.localize('zh_TW'),
+  validateOnInput: true, // 調整為：輸入文字時，就立即進行驗證
+});
+
+const apiUrl= `https://vue3-course-api.hexschool.io/v2`; 
+const path= 'maciw2';
+
+
+const { createApp } = Vue //因為載入了 global 所以這邊直接引入
 
 const app=createApp({
     data(){
@@ -23,7 +41,42 @@ const app=createApp({
             },
             //購物車列表
             carts:{},
-            isLoading:'',
+            //isLoading: true,
+            //表單
+            form: {
+                user: {
+                    name: '',
+                    email: '',
+                    tel: '',
+                    address: '',
+                },
+                message: '',
+            },
+            // city:[
+            //     "台北市",
+            //     "基隆市",
+            //     "新北市",
+            //     "連江縣",
+            //     "宜蘭縣",
+            //     "新竹市",
+            //     "新竹縣",
+            //     "桃園市",
+            //     "苗栗縣",
+            //     "台中市",
+            //     "彰化縣",
+            //     "南投縣",
+            //     "嘉義市",
+            //     "嘉義縣",
+            //     "雲林縣",
+            //     "台南市",
+            //     "高雄市",
+            //     "澎湖縣",
+            //     "金門縣",
+            //     "屏東縣",
+            //     "台東縣",
+            //     "花蓮縣",
+            //     "請選擇地區"
+            // ]
         }
     },
 
@@ -71,7 +124,6 @@ const app=createApp({
             axios.get(`${apiUrl}/api/${path}/cart`)
                 .then((res)=>{
                     this.carts=res.data.data;
-                    console.log(this.carts)
                     this.status.showCartLoading='';
                 })
                 .catch((err)=>{
@@ -114,29 +166,51 @@ const app=createApp({
         removeAllCart(item){
                 axios.delete(`${apiUrl}/api/${path}/carts`)
                 .then((res)=>{
-                    console.log(res);
                     this.getCart();
                 })
                 .catch((err)=>{
                     return window.alert(err.data.message);
                 })
-        }
+        },
+        isPhone(value) {
+            const phoneNumber = /^(09)[0-9]{8}$/
+            return phoneNumber.test(value) ? true : '需要正確的電話號碼'
+        },
+        createOrder() {
+            //console.log(this.form);
+            const order = this.form;
+
+            axios.post(`${apiUrl}/api/${path}/order`, {data : order})
+                .then((res)=>{
+                    alert(res.data.message);
+                    this.$refs.form.resetForm();
+                    this.getCart();
+                })
+                .catch((err)=>{
+                    alert(err.response.data.message);
+                })
+
+          },
     },
     mounted(){
         //初始化
-        this.isLoading=true;
+        console.log(VueLoading)
         setTimeout(()=>{
             this.getProductList();
             this.getCart();
-        },3000)
+            // this.isLoading=false;
+        },1000)
         
     },
     components:{
         userModal,
+        VForm: Form,
+        VField: Field,
+        ErrorMessage: ErrorMessage,
     }
 });
+app.component('loading', VueLoading.Component)
 
-app.use(VueLoading.LoadingPlugin);
 
 app.mount('#app');
 
