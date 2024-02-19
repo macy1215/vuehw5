@@ -16,7 +16,7 @@
   <body>
     <div id="app">
       <div class="container">
-        <!-- <loading v-model:active="isLoading"/> -->
+        <loading v-model:active="isLoading"/></loading>
         <div class="mt-4">
           <!-- 產品Modal -->
           <user-Modal :temp-Product="tempProduct,status" :add-to-cart="addToCart" ref="pModal"></user-Modal>
@@ -320,7 +320,6 @@
     <script src="https://cdn.jsdelivr.net/npm/vue-loading-overlay@6"></script>
     <link href="https://cdn.jsdelivr.net/npm/vue-loading-overlay@6/dist/css/index.css" rel="stylesheet">
     
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://unpkg.com/vee-validate@next"></script>
     <script src="https://unpkg.com/@vee-validate/i18n@4.1.0"></script>
     <script src="https://unpkg.com/@vee-validate/rules"></script>

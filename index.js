@@ -41,7 +41,7 @@ const app=createApp({
             },
             //購物車列表
             carts:{},
-            //isLoading: true,
+            isLoading: true,
             //表單
             form: {
                 user: {
